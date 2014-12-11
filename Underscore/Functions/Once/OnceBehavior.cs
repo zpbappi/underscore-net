@@ -1,4 +1,4 @@
-﻿namespace Underscore.Functions
+﻿namespace Underscore.Functions.Once
 {
     using global::Underscore.Core;
 

@@ -42,9 +42,9 @@
     <Compile Include="Core\Generic\ExecutionContext.cs" />
     <Compile Include="Core\IExecutionBehavior.cs" />
     <Compile Include="Core\IExecutionCallback.cs" />
-    <Compile Include="Functions\OnceBehavior.cs" />
+    <Compile Include="Functions\Once\OnceBehavior.cs" />
     <Compile Include="Core\ExecutionContext.cs" />
-    <Compile Include="Functions\Registration.cs" />
+    <Compile Include="Functions\Once\Registration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Underscore.cs" />
   </ItemGroup>

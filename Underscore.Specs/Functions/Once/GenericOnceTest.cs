@@ -1,4 +1,4 @@
-﻿namespace Underscore.Specs.Once
+﻿namespace Underscore.Specs.Functions.Once
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,8 @@
     using Machine.Specifications;
 
     using NSubstitute;
+
+    using global::Underscore.Functions.Once;
 
     [Tags("_.Once()")]
     [Subject(typeof(Underscore), "Testing generic version of _.Once()")]

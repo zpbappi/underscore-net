@@ -1,10 +1,12 @@
-﻿namespace Underscore.Specs.Once
+﻿namespace Underscore.Specs.Functions.Once
 {
     using System;
 
     using Machine.Specifications;
 
     using NSubstitute;
+
+    using global::Underscore.Functions.Once;
 
     [Tags("_.Once()")]
     [Subject(typeof(Underscore), "Testing non-generic version on _.Once()")]

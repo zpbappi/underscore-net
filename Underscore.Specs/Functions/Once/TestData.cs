@@ -1,4 +1,4 @@
-﻿namespace Underscore.Specs.Once
+﻿namespace Underscore.Specs.Functions.Once
 {
     using System.Collections.Generic;
 
