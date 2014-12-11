@@ -6,8 +6,8 @@
 
     using NSubstitute;
 
-    [Tags("_.Once")]
-    [Subject(typeof(Underscore))]
+    [Tags("_.Once()")]
+    [Subject(typeof(Underscore), "Testing non-generic version on _.Once()")]
     public class OnceTest
     {
         Establish context = () =>

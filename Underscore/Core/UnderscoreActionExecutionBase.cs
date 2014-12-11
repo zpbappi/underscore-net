@@ -2,16 +2,18 @@
 {
     using System;
 
-    public abstract class UnderscoreActionExecutionBase
+    public class UnderscoreActionExecutionBase : IExecutionCallback
     {
         private readonly Action action;
+
+        private readonly IExecutionBehavior executionBehavior;
 
         public static implicit operator Action(UnderscoreActionExecutionBase instance)
         {
             return instance.Wrapper;
         }
 
-        internal UnderscoreActionExecutionBase(Action action)
+        internal UnderscoreActionExecutionBase(Action action, IExecutionBehavior executionBehavior)
         {
             if (action == null)
             {
@@ -19,24 +21,7 @@
             }
 
             this.action = action;
-        }
-
-        protected abstract bool CanExecute { get; }
-
-        protected virtual void Executing()
-        {
-        }
-
-        protected virtual void Executed()
-        {
-        }
-
-        protected virtual void WrapperCalling()
-        {
-        }
-
-        protected virtual void WrapperCalled()
-        {
+            this.executionBehavior = executionBehavior;
         }
 
         internal Action Wrapper
@@ -49,21 +34,39 @@
 
         private void WrapperFunction()
         {
-            this.WrapperCalling();
+            this.executionBehavior.NotifyWrapperCalling();
 
-            if (this.CanExecute)
+            if (this.executionBehavior.CanExecute)
             {
-                this.Executing();
-                this.Execute();
-                this.Executed();
+                this.ExecuteInternal();
             }
 
-            this.WrapperCalled();
+            this.executionBehavior.NotifyWrapperCalled();
         }
 
-        private void Execute()
+        private void ExecuteInternal(bool suppressNotification = false)
         {
+            if (!suppressNotification)
+            {
+                this.executionBehavior.NotifyExecuting();
+            }
+
             this.action();
+
+            if (suppressNotification)
+            {
+                this.executionBehavior.NotifyExecuted(); 
+            }
+        }
+
+        public void Execute(params object[] args)
+        {
+            this.ExecuteInternal();
+        }
+
+        public void ExecuteWithoutNotification(params object[] args)
+        {
+            this.ExecuteInternal(true);
         }
     }
 }

@@ -2,31 +2,16 @@
 {
     using System;
 
-    internal abstract class GenericUnderscoreExecutionBase<T>
+    internal class GenericUnderscoreExecutionBase<T> : IExecutionCallback
     {
         private readonly Delegate action;
 
-        internal GenericUnderscoreExecutionBase(Delegate action)
+        private readonly IExecutionBehavior executionBehavior;
+
+        internal GenericUnderscoreExecutionBase(Delegate action, IExecutionBehavior executionBehavior)
         {
             this.action = action;
-        }
-
-        protected abstract bool CanExecute { get; }
-
-        protected virtual void Executing(params object[] args)
-        {
-        }
-
-        protected virtual void Executed(params object[] args)
-        {
-        }
-
-        protected virtual void WrapperCalling(params object[] args)
-        {
-        }
-
-        protected virtual void WrapperCalled(params object[] args)
-        {
+            this.executionBehavior = executionBehavior;
         }
 
         internal Action<T> Wrapper
@@ -39,28 +24,43 @@
 
         protected void WrapperFunction(params object[] args)
         {
-            this.WrapperCalling(args);
+            this.executionBehavior.NotifyWrapperCalling(args);
 
-            if (this.CanExecute)
+            if (this.executionBehavior.CanExecute)
             {
-                this.Executing(args);
-                this.Execute(args);
-                this.Executed(args);
+                this.ExecuteInternal(args);
             }
 
-            this.WrapperCalled();
+            this.executionBehavior.NotifyWrapperCalled(args);
         }
 
-        private void Execute(params object[] args)
+        private void ExecuteInternal(params object[] args)
+        {
+            this.executionBehavior.NotifyExecuting(args);
+            this.ExecuteInternalWithoutNotification(args);
+            this.executionBehavior.NotifyExecuted(args);
+        }
+
+        private void ExecuteInternalWithoutNotification(params object[] args)
         {
             this.action.DynamicInvoke(args);
         }
+
+        public void Execute(params object[] args)
+        {
+            this.ExecuteInternal(args);
+        }
+
+        public void ExecuteWithoutNotification(params object[] args)
+        {
+            this.ExecuteInternalWithoutNotification(args);
+        }
     }
 
-    internal abstract class GenericUnderscoreExecutionBase<T1, T2> : GenericUnderscoreExecutionBase<T1>
+    internal class GenericUnderscoreExecutionBase<T1, T2> : GenericUnderscoreExecutionBase<T1>
     {
-        internal GenericUnderscoreExecutionBase(Delegate action)
-            : base(action)
+        internal GenericUnderscoreExecutionBase(Delegate action, IExecutionBehavior executionBehavior)
+            : base(action, executionBehavior)
         {
             
         }
@@ -74,10 +74,10 @@
         }
     }
 
-    internal abstract class GenericUnderscoreExecutionBase<T1, T2, T3> : GenericUnderscoreExecutionBase<T1>
+    internal class GenericUnderscoreExecutionBase<T1, T2, T3> : GenericUnderscoreExecutionBase<T1>
     {
-        internal GenericUnderscoreExecutionBase(Delegate action)
-            : base(action)
+        internal GenericUnderscoreExecutionBase(Delegate action, IExecutionBehavior executionBehavior)
+            : base(action, executionBehavior)
         {
 
         }
