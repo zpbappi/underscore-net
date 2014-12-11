@@ -27,40 +27,42 @@
             }
         }
 
-        public void Execute(params object[] args)
+        public void Execute(Guid callerId, params object[] args)
         {
-            this.ExecuteInternal();
+            this.ExecuteInternal(callerId);
         }
 
         public void ExecuteWithoutNotification(params object[] args)
         {
-            this.ExecuteInternal(true);
+            this.ExecuteInternal(Guid.Empty, true);
         }
 
         private void WrapperFunction()
         {
-            this.executionBehavior.NotifyWrapperCalling();
+            var callerId = Guid.NewGuid();
+
+            this.executionBehavior.NotifyWrapperCalling(callerId);
 
             if (this.executionBehavior.CanExecute)
             {
-                this.ExecuteInternal();
+                this.ExecuteInternal(callerId);
             }
 
-            this.executionBehavior.NotifyWrapperCalled();
+            this.executionBehavior.NotifyWrapperCalled(callerId);
         }
 
-        private void ExecuteInternal(bool suppressNotification = false)
+        private void ExecuteInternal(Guid callerId, bool suppressNotification = false)
         {
             if (!suppressNotification)
             {
-                this.executionBehavior.NotifyExecuting();
+                this.executionBehavior.NotifyExecuting(callerId);
             }
 
             this.action();
 
             if (suppressNotification)
             {
-                this.executionBehavior.NotifyExecuted(); 
+                this.executionBehavior.NotifyExecuted(callerId); 
             }
         }
     }

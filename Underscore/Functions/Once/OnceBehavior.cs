@@ -1,5 +1,7 @@
 ﻿namespace Underscore.Functions.Once
 {
+    using System;
+
     using global::Underscore.Core;
 
     internal class OnceBehavior : IExecutionBehavior
@@ -11,20 +13,20 @@
 
         public bool CanExecute { get; private set; }
 
-        public void NotifyWrapperCalling(params object[] args)
+        public void NotifyWrapperCalling(Guid callerId, params object[] args)
         {
         }
 
-        public void NotifyWrapperCalled(params object[] args)
+        public void NotifyWrapperCalled(Guid callerId, params object[] args)
         {
         }
 
-        public void NotifyExecuting(params object[] args)
+        public void NotifyExecuting(Guid callerId, params object[] args)
         {
             this.CanExecute = false;
         }
 
-        public void NotifyExecuted(params object[] args)
+        public void NotifyExecuted(Guid callerId, params object[] args)
         {
         }
     }

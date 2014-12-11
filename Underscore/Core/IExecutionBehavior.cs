@@ -1,15 +1,17 @@
 ﻿namespace Underscore.Core
 {
+    using System;
+
     internal interface IExecutionBehavior
     {
         bool CanExecute { get; }
 
-        void NotifyWrapperCalling(params object[] args);
+        void NotifyWrapperCalling(Guid callerId, params object[] args);
 
-        void NotifyWrapperCalled(params object[] args);
+        void NotifyWrapperCalled(Guid callerId, params object[] args);
 
-        void NotifyExecuting(params object[] args);
+        void NotifyExecuting(Guid callerId, params object[] args);
 
-        void NotifyExecuted(params object[] args);
+        void NotifyExecuted(Guid callerId, params object[] args);
     }
 }

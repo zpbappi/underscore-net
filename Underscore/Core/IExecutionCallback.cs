@@ -1,8 +1,10 @@
 ﻿namespace Underscore.Core
 {
+    using System;
+
     internal interface IExecutionCallback
     {
-        void Execute(params object[] args);
+        void Execute(Guid callerId, params object[] args);
 
         void ExecuteWithoutNotification(params object[] args);
     }

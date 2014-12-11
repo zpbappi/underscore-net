@@ -23,9 +23,9 @@
             }
         }
 
-        public void Execute(params object[] args)
+        public void Execute(Guid callerId, params object[] args)
         {
-            this.ExecuteInternal(args);
+            this.ExecuteInternal(callerId, args);
         }
 
         public void ExecuteWithoutNotification(params object[] args)
@@ -35,21 +35,23 @@
 
         protected void WrapperFunction(params object[] args)
         {
-            this.executionBehavior.NotifyWrapperCalling(args);
+            var callerId = Guid.NewGuid();
+
+            this.executionBehavior.NotifyWrapperCalling(callerId, args);
 
             if (this.executionBehavior.CanExecute)
             {
-                this.ExecuteInternal(args);
+                this.ExecuteInternal(callerId, args);
             }
 
-            this.executionBehavior.NotifyWrapperCalled(args);
+            this.executionBehavior.NotifyWrapperCalled(callerId, args);
         }
 
-        private void ExecuteInternal(params object[] args)
+        private void ExecuteInternal(Guid callerId, params object[] args)
         {
-            this.executionBehavior.NotifyExecuting(args);
+            this.executionBehavior.NotifyExecuting(callerId, args);
             this.ExecuteInternalWithoutNotification(args);
-            this.executionBehavior.NotifyExecuted(args);
+            this.executionBehavior.NotifyExecuted(callerId, args);
         }
 
         private void ExecuteInternalWithoutNotification(params object[] args)
