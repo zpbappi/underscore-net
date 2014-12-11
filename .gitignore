@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/packages
+*.suo
+/Underscore/bin
+/Underscore/obj
+/Underscore.Specs/bin
+/Underscore.Specs/obj
