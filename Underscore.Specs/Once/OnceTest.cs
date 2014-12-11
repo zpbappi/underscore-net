@@ -1,8 +1,6 @@
-﻿namespace Underscore.Specs
+﻿namespace Underscore.Specs.Once
 {
     using System;
-
-    using global::Underscore.Specs.Once;
 
     using Machine.Specifications;
 
