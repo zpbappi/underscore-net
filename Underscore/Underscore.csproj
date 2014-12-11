@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UnderscoreActionExecutionBase.cs" />
+    <Compile Include="OnceExecution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Underscore.cs" />
   </ItemGroup>
