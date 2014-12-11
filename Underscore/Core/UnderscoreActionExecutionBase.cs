@@ -1,4 +1,4 @@
-﻿namespace Underscore
+﻿namespace Underscore.Core
 {
     using System;
 
@@ -47,7 +47,7 @@
             }
         }
 
-        protected void WrapperFunction()
+        private void WrapperFunction()
         {
             this.WrapperCalling();
 
@@ -61,7 +61,7 @@
             this.WrapperCalled();
         }
 
-        protected void Execute()
+        private void Execute()
         {
             this.action();
         }

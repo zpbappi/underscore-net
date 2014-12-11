@@ -1,7 +1,5 @@
 ﻿namespace Underscore.Specs.Once
 {
-    using System;
-
     public interface ITestData
     {
         void DoSomething();
