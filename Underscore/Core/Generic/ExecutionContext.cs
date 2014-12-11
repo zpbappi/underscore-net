@@ -1,14 +1,15 @@
 ﻿namespace Underscore.Core.Generic
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
-    internal class GenericUnderscoreExecutionBase<T> : IExecutionCallback
+    internal class ExecutionContext<T> : IExecutionCallback
     {
         private readonly Delegate action;
 
         private readonly IExecutionBehavior executionBehavior;
 
-        internal GenericUnderscoreExecutionBase(Delegate action, IExecutionBehavior executionBehavior)
+        internal ExecutionContext(Delegate action, IExecutionBehavior executionBehavior)
         {
             this.action = action;
             this.executionBehavior = executionBehavior;
@@ -18,8 +19,18 @@
         {
             get
             {
-                return (t) => this.WrapperFunction(t);
+                return t => this.WrapperFunction(t);
             }
+        }
+
+        public void Execute(params object[] args)
+        {
+            this.ExecuteInternal(args);
+        }
+
+        public void ExecuteWithoutNotification(params object[] args)
+        {
+            this.ExecuteInternalWithoutNotification(args);
         }
 
         protected void WrapperFunction(params object[] args)
@@ -45,24 +56,14 @@
         {
             this.action.DynamicInvoke(args);
         }
-
-        public void Execute(params object[] args)
-        {
-            this.ExecuteInternal(args);
-        }
-
-        public void ExecuteWithoutNotification(params object[] args)
-        {
-            this.ExecuteInternalWithoutNotification(args);
-        }
     }
 
-    internal class GenericUnderscoreExecutionBase<T1, T2> : GenericUnderscoreExecutionBase<T1>
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "These generic classes better stay in the same file, until we find another way of removing them completely.")]
+    internal class ExecutionContext<T1, T2> : ExecutionContext<T1>
     {
-        internal GenericUnderscoreExecutionBase(Delegate action, IExecutionBehavior executionBehavior)
+        internal ExecutionContext(Delegate action, IExecutionBehavior executionBehavior)
             : base(action, executionBehavior)
         {
-            
         }
 
         internal new Action<T1, T2> Wrapper
@@ -74,12 +75,11 @@
         }
     }
 
-    internal class GenericUnderscoreExecutionBase<T1, T2, T3> : GenericUnderscoreExecutionBase<T1>
+    internal class ExecutionContext<T1, T2, T3> : ExecutionContext<T1>
     {
-        internal GenericUnderscoreExecutionBase(Delegate action, IExecutionBehavior executionBehavior)
+        internal ExecutionContext(Delegate action, IExecutionBehavior executionBehavior)
             : base(action, executionBehavior)
         {
-
         }
 
         internal new Action<T1, T2, T3> Wrapper

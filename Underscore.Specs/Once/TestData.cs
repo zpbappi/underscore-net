@@ -1,6 +1,5 @@
 ﻿namespace Underscore.Specs.Once
 {
-    using System.Collections;
     using System.Collections.Generic;
 
     public interface ITestData
@@ -18,22 +17,22 @@
     {
         public void DoSomething()
         {
-            //do nothing
+            // do nothing
         }
 
         public void Method1(int a)
         {
-            //do nothing
+            // do nothing
         }
 
         public void Method2(int a, string s)
         {
-            //do nothing
+            // do nothing
         }
 
         public void Method3(string a, double d, IEnumerable<string> names)
         {
-            //do nothing
+            // do nothing
         }
     }
 }

@@ -2,18 +2,13 @@
 {
     using System;
 
-    public class UnderscoreActionExecutionBase : IExecutionCallback
+    public class ExecutionContext : IExecutionCallback
     {
         private readonly Action action;
 
         private readonly IExecutionBehavior executionBehavior;
 
-        public static implicit operator Action(UnderscoreActionExecutionBase instance)
-        {
-            return instance.Wrapper;
-        }
-
-        internal UnderscoreActionExecutionBase(Action action, IExecutionBehavior executionBehavior)
+        internal ExecutionContext(Action action, IExecutionBehavior executionBehavior)
         {
             if (action == null)
             {
@@ -30,6 +25,16 @@
             {
                 return this.WrapperFunction;
             }
+        }
+
+        public void Execute(params object[] args)
+        {
+            this.ExecuteInternal();
+        }
+
+        public void ExecuteWithoutNotification(params object[] args)
+        {
+            this.ExecuteInternal(true);
         }
 
         private void WrapperFunction()
@@ -57,16 +62,6 @@
             {
                 this.executionBehavior.NotifyExecuted(); 
             }
-        }
-
-        public void Execute(params object[] args)
-        {
-            this.ExecuteInternal();
-        }
-
-        public void ExecuteWithoutNotification(params object[] args)
-        {
-            this.ExecuteInternal(true);
         }
     }
 }

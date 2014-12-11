@@ -2,9 +2,9 @@
 {
     using global::Underscore.Core;
 
-    internal class OnceExecutionBehavior : IExecutionBehavior
+    internal class OnceBehavior : IExecutionBehavior
     {
-        public OnceExecutionBehavior()
+        public OnceBehavior()
         {
             this.CanExecute = true;
         }
@@ -13,12 +13,10 @@
 
         public void NotifyWrapperCalling(params object[] args)
         {
-            //
         }
 
         public void NotifyWrapperCalled(params object[] args)
         {
-            //
         }
 
         public void NotifyExecuting(params object[] args)
@@ -28,7 +26,6 @@
 
         public void NotifyExecuted(params object[] args)
         {
-            //
         }
     }
 }
