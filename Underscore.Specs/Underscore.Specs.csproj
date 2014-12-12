@@ -52,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Functions\Debounce\DebounceTestData.cs" />
+    <Compile Include="Functions\Debounce\GenericLeadingDebounceTest.cs" />
     <Compile Include="Functions\Debounce\GenericTrailingDebounceTest.cs" />
+    <Compile Include="Functions\Debounce\LeadingDebounceTest.cs" />
     <Compile Include="Functions\Debounce\TrailingDebounceTest.cs" />
     <Compile Include="Functions\Once\GenericOnceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

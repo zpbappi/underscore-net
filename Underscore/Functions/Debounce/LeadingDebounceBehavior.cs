@@ -1,76 +1,78 @@
 ﻿namespace Underscore.Functions.Debounce
 {
     using System;
-    using System.Threading;
     using System.Timers;
 
     using global::Underscore.Core;
 
-    using Timer = System.Timers.Timer;
-
-    internal class TrailingDebounceBehavior : Disposable, IExecutionBehavior
+    internal class LeadingDebounceBehavior : Disposable, IExecutionBehavior
     {
-        private readonly Mutex executingMutex;
-
-        private IExecutionWrapper wrapper;
-
         private readonly Timer timer;
-
-        private object[] parameters;
-
-        private Guid callerId;
 
         private bool isDisposed;
 
-        public TrailingDebounceBehavior(double wait)
+        private bool canExecute;
+
+        private readonly object mutext;
+
+        public LeadingDebounceBehavior(double wait)
         {
-            this.executingMutex = new Mutex();
+            this.canExecute = true;
+            this.mutext = new object();
             this.timer = new Timer(wait) { AutoReset = false };
             this.timer.Elapsed += this.TimerElapsed;
         }
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            this.executingMutex.WaitOne();
+            lock (this.mutext)
+            {
+                this.canExecute = true;
+            }
             ((Timer)sender).Stop();
-            this.wrapper.Execute(this.callerId, this.parameters);
         }
 
         public bool CanExecute
         {
             get
             {
-                // never executed by calling the wrapper
-                return false;
+                if (!this.canExecute)
+                {
+                    return false;
+                }
+
+                lock (this.mutext)
+                {
+                    if (!this.canExecute)
+                    {
+                        return false;
+                    }
+
+                    this.canExecute = false;
+                    return true;
+                }
             }
         }
 
         public void NotifyWrapperCalling(Guid callerId, params object[] args)
         {
-            this.timer.Stop();
-            this.executingMutex.WaitOne();
-            this.callerId = callerId;
-            this.parameters = args;
         }
 
         public void NotifyWrapperCalled(Guid callerId, params object[] args)
         {
-            this.executingMutex.ReleaseMutex();
-            this.timer.Start();
         }
 
         public void NotifyExecuting(Guid callerId, params object[] args)
         {
+            this.timer.Start();
         }
 
         public void NotifyExecuted(Guid callerId, params object[] args)
         {
-            this.executingMutex.ReleaseMutex();
         }
 
         public void SetWrapper(IExecutionWrapper executionWrapper)
         {
-            this.wrapper = executionWrapper;
         }
 
         protected override void Dispose(bool disposing)
@@ -80,11 +82,6 @@
                 return;
             }
             this.isDisposed = true;
-
-            if (this.executingMutex != null)
-            {
-                this.executingMutex.Dispose();
-            }
 
             if (this.timer != null)
             {

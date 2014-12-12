@@ -26,7 +26,7 @@
                 Thread.Sleep(150);
             };
 
-        It should_call_do_something_once = () => data.Received(1).DoSomething();
+        It should_call_action_once = () => data.Received(1).DoSomething();
 
         private static IDebounceTestData data;
 
