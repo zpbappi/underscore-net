@@ -43,6 +43,7 @@
     <Compile Include="Core\Generic\ExecutionContext.cs" />
     <Compile Include="Core\IExecutionBehavior.cs" />
     <Compile Include="Core\IExecutionWrapper.cs" />
+    <Compile Include="Functions\Debounce\Registration.cs" />
     <Compile Include="Functions\Debounce\TrailingDebounceBehavior.cs" />
     <Compile Include="Functions\Once\OnceBehavior.cs" />
     <Compile Include="Core\ExecutionContext.cs" />
