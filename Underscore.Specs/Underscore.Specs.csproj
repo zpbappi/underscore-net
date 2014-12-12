@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Functions\Debounce\TrailingDebounceTest.cs" />
     <Compile Include="Functions\Once\GenericOnceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Functions\Once\OnceTest.cs" />

@@ -50,11 +50,11 @@
             this.executingMutex.WaitOne();
             this.callerId = callerId;
             this.parameters = args;
-            this.executingMutex.ReleaseMutex();
         }
 
         public void NotifyWrapperCalled(Guid callerId, params object[] args)
         {
+            this.executingMutex.ReleaseMutex();
         }
 
         public void NotifyExecuting(Guid callerId, params object[] args)
