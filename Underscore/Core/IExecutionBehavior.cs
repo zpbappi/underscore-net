@@ -13,5 +13,7 @@
         void NotifyExecuting(Guid callerId, params object[] args);
 
         void NotifyExecuted(Guid callerId, params object[] args);
+
+        void SetWrapper(IExecutionWrapper executionWrapper);
     }
 }

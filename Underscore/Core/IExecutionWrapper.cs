@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal interface IExecutionCallback
+    internal interface IExecutionWrapper
     {
         void Execute(Guid callerId, params object[] args);
 

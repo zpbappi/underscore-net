@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class ExecutionContext : IExecutionCallback
+    public class ExecutionContext : IExecutionWrapper
     {
         private readonly Action action;
 
@@ -17,6 +17,7 @@
 
             this.action = action;
             this.executionBehavior = executionBehavior;
+            executionBehavior.SetWrapper(this);
         }
 
         internal Action Wrapper
@@ -43,12 +44,17 @@
 
             this.executionBehavior.NotifyWrapperCalling(callerId);
 
-            if (this.executionBehavior.CanExecute)
+            try
             {
-                this.ExecuteInternal(callerId);
+                if (this.executionBehavior.CanExecute)
+                {
+                    this.ExecuteInternal(callerId);
+                }
             }
-
-            this.executionBehavior.NotifyWrapperCalled(callerId);
+            finally
+            {
+                this.executionBehavior.NotifyWrapperCalled(callerId);
+            }
         }
 
         private void ExecuteInternal(Guid callerId, bool suppressNotification = false)
@@ -58,11 +64,16 @@
                 this.executionBehavior.NotifyExecuting(callerId);
             }
 
-            this.action();
-
-            if (suppressNotification)
+            try
             {
-                this.executionBehavior.NotifyExecuted(callerId); 
+                this.action();
+            }
+            finally
+            {
+                if (!suppressNotification)
+                {
+                    this.executionBehavior.NotifyExecuted(callerId);
+                }
             }
         }
     }

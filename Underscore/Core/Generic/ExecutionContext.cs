@@ -3,7 +3,7 @@
     using System;
     using System.Diagnostics.CodeAnalysis;
 
-    internal class ExecutionContext<T> : IExecutionCallback
+    internal class ExecutionContext<T> : IExecutionWrapper
     {
         private readonly Delegate action;
 
@@ -13,6 +13,7 @@
         {
             this.action = action;
             this.executionBehavior = executionBehavior;
+            executionBehavior.SetWrapper(this);
         }
 
         internal Action<T> Wrapper
@@ -39,19 +40,30 @@
 
             this.executionBehavior.NotifyWrapperCalling(callerId, args);
 
-            if (this.executionBehavior.CanExecute)
+            try
             {
-                this.ExecuteInternal(callerId, args);
+                if (this.executionBehavior.CanExecute)
+                {
+                    this.ExecuteInternal(callerId, args);
+                }
             }
-
-            this.executionBehavior.NotifyWrapperCalled(callerId, args);
+            finally
+            {
+                this.executionBehavior.NotifyWrapperCalled(callerId, args);
+            }
         }
 
         private void ExecuteInternal(Guid callerId, params object[] args)
         {
             this.executionBehavior.NotifyExecuting(callerId, args);
-            this.ExecuteInternalWithoutNotification(args);
-            this.executionBehavior.NotifyExecuted(callerId, args);
+            try
+            {
+                this.ExecuteInternalWithoutNotification(args);
+            }
+            finally
+            {
+                this.executionBehavior.NotifyExecuted(callerId, args);
+            }
         }
 
         private void ExecuteInternalWithoutNotification(params object[] args)

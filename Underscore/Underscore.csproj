@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Disposable.cs" />
     <Compile Include="Core\Generic\ExecutionContext.cs" />
     <Compile Include="Core\IExecutionBehavior.cs" />
-    <Compile Include="Core\IExecutionCallback.cs" />
+    <Compile Include="Core\IExecutionWrapper.cs" />
+    <Compile Include="Functions\Debounce\TrailingDebounceBehavior.cs" />
     <Compile Include="Functions\Once\OnceBehavior.cs" />
     <Compile Include="Core\ExecutionContext.cs" />
     <Compile Include="Functions\Once\Registration.cs" />

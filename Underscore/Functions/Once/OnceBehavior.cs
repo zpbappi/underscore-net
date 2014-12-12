@@ -53,5 +53,9 @@
         public void NotifyExecuted(Guid callerId, params object[] args)
         {
         }
+
+        public void SetWrapper(IExecutionWrapper executionWrapper)
+        {
+        }
     }
 }
