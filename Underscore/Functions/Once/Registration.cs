@@ -29,5 +29,10 @@
         {
             return new ExecutionContext<T1, T2, T3>(action, new OnceBehavior()).Wrapper;
         }
+
+        public static Action<T1, T2, T3, T4> Once<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action)
+        {
+            return new ExecutionContext<T1, T2, T3, T4>(action, new OnceBehavior()).Wrapper;
+        }
     }
 }

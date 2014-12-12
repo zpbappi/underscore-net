@@ -92,4 +92,20 @@
             }
         }
     }
+
+    internal class ExecutionContext<T1, T2, T3, T4> : ExecutionContext<T1>
+    {
+        internal ExecutionContext(Delegate action, IExecutionBehavior executionBehavior)
+            : base(action, executionBehavior)
+        {
+        }
+
+        internal new Action<T1, T2, T3, T4> Wrapper
+        {
+            get
+            {
+                return (t1, t2, t3, t4) => this.WrapperFunction(t1, t2, t3, t4);
+            }
+        }
+    }
 }

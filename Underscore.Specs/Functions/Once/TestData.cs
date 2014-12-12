@@ -11,6 +11,8 @@
         void Method2(int a, string s);
 
         void Method3(string a, double d, IEnumerable<string> names);
+
+        void Method4(int a, char b, string c, long d);
     }
 
     public class TestData : ITestData
@@ -31,6 +33,11 @@
         }
 
         public void Method3(string a, double d, IEnumerable<string> names)
+        {
+            // do nothing
+        }
+
+        public void Method4(int a, char b, string c, long d)
         {
             // do nothing
         }
