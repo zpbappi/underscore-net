@@ -10,7 +10,7 @@
     using global::Underscore.Functions.Once;
 
     [Tags("_.Once()")]
-    [Subject(typeof(Underscore), "Testing generic version of _.Once()")]
+    [Subject("Testing generic version of _.Once()")]
     public class GenericOnceTest
     {
         Establish context = () =>
