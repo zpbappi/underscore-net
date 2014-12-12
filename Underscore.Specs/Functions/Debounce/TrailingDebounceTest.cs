@@ -15,21 +15,37 @@
         Establish context = () =>
             {
                 data = Substitute.For<IDebounceTestData>();
-                action = Underscore.Debounce(data.DoSomething, 100);
+                action1 = Underscore.Debounce(data.DoSomething, 500);
+                action2 = Underscore.Debounce(data.DoAnotherThing, 100);
             };
 
         Because of = () =>
             {
-                action();
-                action();
-                action();
-                Thread.Sleep(150);
+                action1();
+                action2();
+                action1();
+                action2();
+                action1();
+                action2();
+                
+                Thread.Sleep(200);
+
+                action1();
+                action2();
+                action1();
+                action2();
+                action1();
+                action2();
+
+                Thread.Sleep(600);
             };
 
-        It should_call_action_once = () => data.Received(1).DoSomething();
+        It should_call_action1_once = () => data.Received(1).DoSomething();
+
+        It should_call_action2_twice = () => data.Received(2).DoAnotherThing();
 
         private static IDebounceTestData data;
 
-        private static Action action;
+        private static Action action1, action2;
     }
 }
