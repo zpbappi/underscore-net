@@ -7,7 +7,7 @@
 
     using NSubstitute;
 
-    using global::Underscore.Functions.Once;
+    using UnderscoreNet;
 
     [Tags("_.Once()")]
     [Subject("Testing generic version of _.Once()")]

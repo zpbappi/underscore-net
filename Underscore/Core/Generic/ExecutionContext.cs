@@ -1,4 +1,4 @@
-﻿namespace Underscore.Core.Generic
+﻿namespace UnderscoreNet.Core.Generic
 {
     using System;
     using System.Diagnostics.CodeAnalysis;

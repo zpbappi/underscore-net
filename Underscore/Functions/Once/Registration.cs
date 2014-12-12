@@ -1,10 +1,10 @@
-﻿namespace Underscore
+﻿namespace UnderscoreNet
 {
     using System;
 
-    using global::Underscore.Core;
-    using global::Underscore.Core.Generic;
-    using global::Underscore.Functions.Once;
+    using UnderscoreNet.Core;
+    using UnderscoreNet.Core.Generic;
+    using UnderscoreNet.Functions.Once;
 
     /// <summary>
     /// Registration for Once() methods

@@ -6,7 +6,7 @@
 
     using NSubstitute;
 
-    using global::Underscore.Functions.Once;
+    using UnderscoreNet;
 
     [Tags("_.Once()")]
     [Subject("Testing non-generic version on _.Once()")]

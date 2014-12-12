@@ -1,10 +1,10 @@
-﻿namespace Underscore
+﻿namespace UnderscoreNet
 {
     using System;
 
-    using global::Underscore.Core;
-    using global::Underscore.Functions.Debounce;
-    using global::Underscore.Core.Generic;
+    using UnderscoreNet.Core;
+    using UnderscoreNet.Core.Generic;
+    using UnderscoreNet.Functions.Debounce;
 
     /// <summary>
     /// Registration for Debounce() methods

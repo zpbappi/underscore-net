@@ -1,8 +1,8 @@
-﻿namespace Underscore.Functions.Once
+﻿namespace UnderscoreNet.Functions.Once
 {
     using System;
 
-    using global::Underscore.Core;
+    using UnderscoreNet.Core;
 
     internal class OnceBehavior : IExecutionBehavior
     {

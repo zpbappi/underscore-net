@@ -7,7 +7,7 @@
     <ProjectGuid>{1D8547C3-53A8-416B-AA4E-561506F34CC3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Underscore</RootNamespace>
+    <RootNamespace>UnderscoreNet</RootNamespace>
     <AssemblyName>Underscore</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

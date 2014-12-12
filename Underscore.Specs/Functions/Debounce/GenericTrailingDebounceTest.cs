@@ -6,7 +6,8 @@
     using Machine.Specifications;
 
     using NSubstitute;
-    using global::Underscore;
+
+    using UnderscoreNet;
 
     [Tags("_.Debounce()")]
     [Subject("Generic version to trailling debounce test")]

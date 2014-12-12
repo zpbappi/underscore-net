@@ -1,19 +1,19 @@
-﻿namespace Underscore.Functions.Debounce
+﻿namespace UnderscoreNet.Functions.Debounce
 {
     using System;
     using System.Timers;
 
-    using global::Underscore.Core;
+    using UnderscoreNet.Core;
 
     internal class LeadingDebounceBehavior : Disposable, IExecutionBehavior
     {
+        private readonly object mutext;
+
         private readonly Timer timer;
 
         private bool isDisposed;
 
         private bool canExecute;
-
-        private readonly object mutext;
 
         public LeadingDebounceBehavior(double wait)
         {
@@ -21,15 +21,6 @@
             this.mutext = new object();
             this.timer = new Timer(wait) { AutoReset = false };
             this.timer.Elapsed += this.TimerElapsed;
-        }
-
-        private void TimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            lock (this.mutext)
-            {
-                this.canExecute = true;
-            }
-            ((Timer)sender).Stop();
         }
 
         public bool CanExecute
@@ -81,6 +72,7 @@
             {
                 return;
             }
+
             this.isDisposed = true;
 
             if (this.timer != null)
@@ -88,6 +80,16 @@
                 this.timer.Stop();
                 this.timer.Dispose();
             }
+        }
+
+        private void TimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            lock (this.mutext)
+            {
+                this.canExecute = true;
+            }
+
+            ((Timer)sender).Stop();
         }
     }
 }

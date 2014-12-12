@@ -1,7 +1,5 @@
 ﻿namespace Underscore.Specs.Functions.Debounce
 {
-    using System;
-
     public interface IDebounceTestData
     {
         void DoSomething();

@@ -1,4 +1,4 @@
-﻿namespace Underscore.Core
+﻿namespace UnderscoreNet.Core
 {
     using System;
 

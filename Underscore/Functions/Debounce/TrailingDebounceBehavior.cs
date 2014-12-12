@@ -1,25 +1,22 @@
-﻿namespace Underscore.Functions.Debounce
+﻿namespace UnderscoreNet.Functions.Debounce
 {
     using System;
     using System.Threading;
     using System.Timers;
 
-    using global::Underscore.Core;
+    using UnderscoreNet.Core;
 
     using Timer = System.Timers.Timer;
 
     internal class TrailingDebounceBehavior : Disposable, IExecutionBehavior
     {
         private readonly Mutex executingMutex;
-
-        private IExecutionWrapper wrapper;
-
         private readonly Timer timer;
 
+        private Guid wrapperCallerId;
         private object[] parameters;
 
-        private Guid callerId;
-
+        private IExecutionWrapper wrapper;
         private bool isDisposed;
 
         public TrailingDebounceBehavior(double wait)
@@ -27,13 +24,6 @@
             this.executingMutex = new Mutex();
             this.timer = new Timer(wait) { AutoReset = false };
             this.timer.Elapsed += this.TimerElapsed;
-        }
-
-        private void TimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            this.executingMutex.WaitOne();
-            ((Timer)sender).Stop();
-            this.wrapper.Execute(this.callerId, this.parameters);
         }
 
         public bool CanExecute
@@ -49,7 +39,7 @@
         {
             this.timer.Stop();
             this.executingMutex.WaitOne();
-            this.callerId = callerId;
+            this.wrapperCallerId = callerId;
             this.parameters = args;
         }
 
@@ -79,6 +69,7 @@
             {
                 return;
             }
+
             this.isDisposed = true;
 
             if (this.executingMutex != null)
@@ -91,6 +82,13 @@
                 this.timer.Stop();
                 this.timer.Dispose();
             }
+        }
+
+        private void TimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            this.executingMutex.WaitOne();
+            ((Timer)sender).Stop();
+            this.wrapper.Execute(this.wrapperCallerId, this.parameters);
         }
     }
 }

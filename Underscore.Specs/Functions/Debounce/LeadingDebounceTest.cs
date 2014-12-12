@@ -1,12 +1,11 @@
 ﻿namespace Underscore.Specs.Functions.Debounce
 {
     using System;
-    using System.Threading;
 
     using Machine.Specifications;
-
     using NSubstitute;
-    using global::Underscore;
+
+    using UnderscoreNet;
 
     [Tags("_.Debounce()")]
     [Subject("Non-Generic version to leading debounce test")]
