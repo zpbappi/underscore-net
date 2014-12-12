@@ -6,35 +6,18 @@
 
     internal class OnceBehavior : IExecutionBehavior
     {
-        private readonly object mutext;
-
-        private bool canExecute;
+        private int executed;
 
         public OnceBehavior()
         {
-            this.canExecute = true;
-            this.mutext = new object();
+            this.executed = 0;
         }
 
         public bool CanExecute
         {
             get
             {
-                if (!this.canExecute)
-                {
-                    return false;
-                }
-
-                lock (this.mutext)
-                {
-                    if (!this.canExecute)
-                    {
-                        return false;
-                    }
-
-                    this.canExecute = false;
-                    return true;
-                }
+                return System.Threading.Interlocked.CompareExchange(ref this.executed, 1, 0) == 0;
             }
         }
 
