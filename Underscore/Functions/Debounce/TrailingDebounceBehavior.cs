@@ -47,6 +47,7 @@
 
         public void NotifyWrapperCalling(Guid callerId, params object[] args)
         {
+            this.timer.Stop();
             this.executingMutex.WaitOne();
             this.callerId = callerId;
             this.parameters = args;
@@ -55,6 +56,7 @@
         public void NotifyWrapperCalled(Guid callerId, params object[] args)
         {
             this.executingMutex.ReleaseMutex();
+            this.timer.Start();
         }
 
         public void NotifyExecuting(Guid callerId, params object[] args)
@@ -64,7 +66,6 @@
         public void NotifyExecuted(Guid callerId, params object[] args)
         {
             this.executingMutex.ReleaseMutex();
-            this.timer.Start();
         }
 
         public void SetWrapper(IExecutionWrapper executionWrapper)
