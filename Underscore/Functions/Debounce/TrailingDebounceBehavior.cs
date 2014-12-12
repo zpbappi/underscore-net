@@ -18,6 +18,7 @@
 
         private IExecutionWrapper wrapper;
         private bool isDisposed;
+        private System.Threading.ExecutionContext execContext;
 
         public TrailingDebounceBehavior(double wait)
         {
@@ -41,6 +42,12 @@
             this.executingMutex.WaitOne();
             this.wrapperCallerId = callerId;
             this.parameters = args;
+            if (this.execContext != null)
+            {
+                this.execContext.Dispose();
+            }
+
+            this.execContext = System.Threading.ExecutionContext.Capture();
         }
 
         public void NotifyWrapperCalled(Guid callerId, params object[] args)
@@ -55,7 +62,6 @@
 
         public void NotifyExecuted(Guid callerId, params object[] args)
         {
-            this.executingMutex.ReleaseMutex();
         }
 
         public void SetWrapper(IExecutionWrapper executionWrapper)
@@ -88,7 +94,16 @@
         {
             this.executingMutex.WaitOne();
             ((Timer)sender).Stop();
-            this.wrapper.Execute(this.wrapperCallerId, this.parameters);
+            using (this.execContext)
+            {
+                System.Threading.ExecutionContext.Run(
+                    this.execContext,
+                    state => this.wrapper.Execute(this.wrapperCallerId, this.parameters),
+                    null);
+            }
+
+            this.execContext = null;
+            this.executingMutex.ReleaseMutex();
         }
     }
 }
