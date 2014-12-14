@@ -7,11 +7,11 @@ We will cover [Functions](http://underscorejs.org/#functions) Underscore.js firs
 
 FYI, for Actions with generic type arguments, we have currently limited the number of argument to 4. If required, we will increment it later.
 
-#Current support
+##Current support
 * _.Once(...)
 * _.Debounce(...)
 
-#Usage
+##Usage
 First, add the using statement in your file as:
 ```csharp
 using UnderscoreNet
@@ -42,7 +42,7 @@ public class Test
 
 Please refer to the Underscore.Specs folder for tests with more usage.
 
-Sugarcoating:
+##Sugarcoating:
 ```csharp
 using _ = UnderscoreNet.Underscore; // if you know what i mean ;)
 ```
