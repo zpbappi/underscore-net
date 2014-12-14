@@ -1,4 +1,4 @@
-Uunderscore.Net
+Underscore.Net
 ===============
 
 Implementation of some Underscore.js feature in .NET, using C#. If you are a [Underscore.js](http://underscorejs.org) fan and a .NET developer, you will find this library quite interesting. 
