@@ -5,7 +5,9 @@ Implementation of some Underscore.js feature in .NET, using C#
 
 We will cover [Functions](http://underscorejs.org/#functions) Underscore.js first. Then will move on to other features.
 
-#Current implementation
+FYI, for Actions with generic type arguments, we have currently limited the number of argument to 4. If required, we will increment it later.
+
+#Current support
 * _.Once(...)
 * _.Debounce(...)
 
@@ -37,6 +39,8 @@ public class Test
 	}
 }
 ```
+
+Please refer to the Underscore.Specs folder for tests with more usage.
 
 Sugarcoating:
 ```csharp
