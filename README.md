@@ -10,6 +10,7 @@ FYI, for Actions with generic type arguments, we have currently limited the numb
 ##Current support
 * _.Once(...)
 * _.Debounce(...)
+* _.Throttle(...)
 
 ##Usage
 First, add the using statement in your file as:
@@ -39,6 +40,8 @@ public class Test
 	}
 }
 ```
+
+For somewhat realistic use, please see the example in this [blog post](http://zpbappi.com/underscore-net-a-net-implementation-of-underscore-js/).
 
 Please refer to the Underscore.Specs folder for tests with more usage.
 
