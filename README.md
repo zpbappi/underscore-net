@@ -11,6 +11,7 @@ FYI, for Actions with generic type arguments, we have currently limited the numb
 * _.Once(...)
 * _.Debounce(...)
 * _.Throttle(...)
+* _.Negate(...)
 
 ##Usage
 First, add the using statement in your file as:
