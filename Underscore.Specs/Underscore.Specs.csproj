@@ -56,6 +56,8 @@
     <Compile Include="Functions\Debounce\GenericTrailingDebounceTest.cs" />
     <Compile Include="Functions\Debounce\LeadingDebounceTest.cs" />
     <Compile Include="Functions\Debounce\TrailingDebounceTest.cs" />
+    <Compile Include="Functions\Negate\NegateTest.cs" />
+    <Compile Include="Functions\Negate\TestData.cs" />
     <Compile Include="Functions\Once\GenericOnceTest.cs" />
     <Compile Include="Functions\Throttle\TestData.cs" />
     <Compile Include="Functions\Throttle\ThrottleTest.cs" />

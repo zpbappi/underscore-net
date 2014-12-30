@@ -46,6 +46,7 @@
     <Compile Include="Functions\Debounce\LeadingDebounceBehavior.cs" />
     <Compile Include="Functions\Debounce\Registration.cs" />
     <Compile Include="Functions\Debounce\TrailingDebounceBehavior.cs" />
+    <Compile Include="Functions\Negate\Registration.cs" />
     <Compile Include="Functions\Once\OnceBehavior.cs" />
     <Compile Include="Core\ExecutionContext.cs" />
     <Compile Include="Functions\Once\Registration.cs" />
