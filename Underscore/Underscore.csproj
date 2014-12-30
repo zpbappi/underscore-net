@@ -49,6 +49,8 @@
     <Compile Include="Functions\Once\OnceBehavior.cs" />
     <Compile Include="Core\ExecutionContext.cs" />
     <Compile Include="Functions\Once\Registration.cs" />
+    <Compile Include="Functions\Throttle\Registration.cs" />
+    <Compile Include="Functions\Throttle\ThrottleBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Underscore.cs" />
   </ItemGroup>
