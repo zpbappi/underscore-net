@@ -9,7 +9,7 @@
     /// <summary>
     /// Registration for Throttle() methods
     /// </summary>
-    public static partial class Registration
+    public static partial class Underscore
     {
         public static Action Throttle(Action action, double wait, bool leading = true, bool trailing = false)
         {
