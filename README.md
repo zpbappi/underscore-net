@@ -1,5 +1,6 @@
 Underscore.Net
 ===============
+[![Build status](https://ci.appveyor.com/api/projects/status/h6pwrw3kr5tj6y81?svg=true)](https://ci.appveyor.com/project/zpbappi/underscore-net)
 
 Implementation of some Underscore.js feature in .NET, using C#. If you are a [Underscore.js](http://underscorejs.org) fan and a .NET developer, you will find this library quite interesting. 
 
